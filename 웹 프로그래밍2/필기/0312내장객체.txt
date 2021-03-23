@@ -1,0 +1,14 @@
+0316 내장객체1
+
+jsp 주요내장객체 3개 
+
+ 1. request객체: 클라이언트 요청한 정보저장(id,pw정보 등)
+	주요메소드
+	  -getCharacterEncoding()
+	  -getParameter(String name) ****시험문제
+
+
+ 2. response객체: requese대한 응답처리 정보 저장
+
+
+ 3. out객체: 결과출력 

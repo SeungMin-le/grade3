@@ -1,0 +1,13 @@
+
+putty.exe
+~.~.~. 접속
+ID:u20161110683
+pw: 이메일
+
+비번바꾸기 
+
+nano hello.c(파일명)
+c로 코딩
+ctrl=^(저장)
+gcc hello.c -o hell
+./hell (실행)

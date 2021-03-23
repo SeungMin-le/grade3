@@ -1,0 +1,36 @@
+웹 프로그래밍 3/9 3/15
+
+<% %>  : 안에 자바코드
+
+jsp 태그
+- 지시자 태그: JSP 전체에 대한 정보(page, include, taglib) 
+- 스크립 팅 요소 태그: JSP안에서 수행해야할 논리적 작업을 위한 프로그램을
+		이 태그내에 삽입 (선언, 수식, 스크립트릿)
+- 표준 액션 태그: 동적인 컨텐츠를 위한 기능을 제공(usebean, setpropery,param, forward등)
+- 사용자 정의 태그
+- 주석 태그
+
+지시자태그(디렉티브) 형식
+<%@ page language = "java" contentType="text/html;charset=euc-kr"%>
+==> 이 웹 페이지의 작성된 언어는 자바이고 웹 페이지가 실행된 결과는 text 혹은 html로 처리되고 한국어를 포함하고 있다
+지시자태그(디렉티브) 종류
+-page 주요속성
+  autoflush: buffer 속성에 지정되어 있는 만큼 버퍼를 유지, 다 차면 자동으로 전송 <%@ page autoFlush="true" %>
+  buffer: 클라이언트에게 응답시 사용할 출력 버퍼 크기 지정 <%@ page buffer="8kb" %>
+  isthreadsafe: 다수 접속자가 발생 시 그 요청을 어떻게 처리할지 결정 <%@ page isThreadSafe="true" %>
+  contentType: 웹 페이지가 결과를 만들 때 타입을 지정 <%@ page contentType="text/html" %>
+  import: <%@ page import="java.util.*" %>
+  language:
+-include: 현재 jsp파일에 다른 jsp나 html 문서를 포함하는 기능
+-taglib: 사용자가 정의한 태그 사용 가능
+
+
+스크립트릿: 자바코드를 실행할 때 사용되는 명령어들을 삽입하는 부분(JSP문서내에 자바코드 기술하는 부분)
+  형식
+ <%! %> = 변수선언, 함수선언
+ <%= %>= 출력, 함수호출
+ 문자열 출력 두가지 방법  
+   <% out.println("hello JSP"); %> java코드로 출력
+   <% String str = "hello JSP";%> <%= str %> jsp 태그로 출력
+------------------------------------------------------------------------------------------------
+

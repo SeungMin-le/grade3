@@ -1,0 +1,18 @@
+운영체제 목적
+2-2
+1. UI(user interface) - 사용자 눈에 보이는 것
+2. resource utilization(내부적으로 동작)
+	-cpu관리 메모리관리 등을 다 모아놓은 곳 = kernel(windows는 직접만듬, mac은 오픈소스)
+	-Linux는 resource utilization에 해당하고 OS가 되려면 GNU가 필요함(GNU/Linux)
+	-android는 Linux를 사용
+	-MS는 WSL(Windows subsystem for Linux) 
+
+
+운영체제 표준 인터페이스-posix(portable os interface) 
+
+Linux 설치하고 ID: smlee
+
+2-3
+API ( C API )
+ABI
+ISA

@@ -1,0 +1,51 @@
+운영체제 0312
+
+프로세스관리,메모리관리,파일관리 중점으로 수업
+
+OS 서비스
+  -프로그램 개발
+  -프로그램 실행
+  -I/O장치 접근(화면디스플레이, 키보드, 마우스, 프린트)
+  -파일관리(NTFS 사용)
+  -시스템접근(ID,PW)
+  -error 탐지 및 반응
+  -계정
+
+key interfaces
+  -ISA hardware -> OS
+  -ABI OS->library
+  -API library -> Application
+
+OS 역할
+  자원관리 
+  -device driver(하드웨어를 구동시키는 소프트웨어, 운영체제보다 늦게나와서 설치해줘야 알아먹음)
+  -kernel(프로세서,메모리 관리)
+소프트웨어로써의 OS
+  -동시성: 여러 개의 프로그램이 동시에 실행되는 거처럼 보이는 것
+  -병렬성: 물리적으로 동시로 실행되는 것
+
+OS 진화과정
+ -Serial Processing(순차적 프로세싱) : 시간이 오래걸림
+ -Simple Batch Systems(Uniprogramming): 전자보다 설정하는 시간이 줄어듬, 모니터가 생김
+   user Mode: 일부기능만 사용가능, 내가 사용하고 있는 메모리만 사용, 안정성이 높음
+   Kernel Mode: 모든 기능 사용가능, 모든 메모리 사용 가능
+   문제점: 프로그램과 프로그램 사이에 waiting time이 생기면 기다렸다가 다음 프로그램 실행-> 비효율적
+ -Multiprogrammed batch Systems(Multiprogramming): 위의 문제점인 waiting time동안 다른 프로그램 실행 -> 효율적
+ -Time-Sharing Systems(시분할시스템): 여러 개의 프로그램이 실행될 때 하나의 프로그램을 완료하고 다음 프로그램으로
+  				  넘어가는 것이 아니라 시간을 나눠서(time qunatum) 프로그램 하나씩 실행(interleaving)
+			적당한 time quantum = 20~100
+
+Multiprogamming  Vs  time Sharing
+cpu사용량 최소	      반응시간 최소
+우선순위 스케줄링        라운드로빈 스케줄링
+실시간 OS,제어기	      Gerneral purpose OS(Linux,window)
+
+프로세스
+ -프로그램: 명령어들의 집합
+ -프로세스: 프로그램이 실행중인 상태
+
+에러의 원인
+ -부적절한 동기화
+ -상호배타적으로 쓰지 못함
+ - 교착상태(deadlocks)
+ - 
