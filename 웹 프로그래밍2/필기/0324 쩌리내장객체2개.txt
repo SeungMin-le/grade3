@@ -1,0 +1,23 @@
+0324 내장객체 나머지 6개
+
+1. pageContext객체 
+	- 나머지 8가지 내장객체 얻을 때 사용
+	- 페이지 전달 메소드 
+		foward(String path) 다른 페이지로 넘어가고 다시 돌아오지 않음 = response.Redirect()
+		include(String path) 다른 페이지로 넘어가고 다시 돌아옴 
+	- 속성 관련 메소드
+		getAttribute(String name)
+		setAttribute(String name, Object)
+		
+2. application객체
+	-서버 관련 메소드
+		getMjaorVersion()
+		getMinorVersion()
+		getServerInfo() 
+	-로그 관련 메소드
+		log(String Message)
+		log(String message, Throwable exception)
+	-속성 관련 메소드
+		getAttribute(String name)
+		setAttribute(String name, Object)
+
