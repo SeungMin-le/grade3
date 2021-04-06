@@ -1,0 +1,83 @@
+0326
+
+추상화 - 동작과 원리를 몰라도 인터페이스를 제공하여서 사용할 수 있도록 하는 것
+
+OS Management of Application Execution
+-자원은 동시에 사용가능하다(동시성)
+
+process elements
+- 프로그램 코드
+- 코드와 연관되어 있는 데이터의 집합(실행과정에서 생성된 결과)
+PCB(구조체로 묶어서 관리) 
+-PID(프로세스 구별기준)
+-state(ready,running,waiting) trace : 순서 Dispatcher: 한 프로세스에서 다른 프로세스로 넘어가는 것(context switching 수행)
+-priority(우선순위 nice value)
+-PC(다음 번째 실행할 명령어의 주소)
+-memorypointer
+-context data
+-I/O status information
+-계정정보
+
+process  Termination
+
+-정상적으로 끝까지 작동 후 종료
+-HALT명령오로 강제종료
+-time limit을 넘어선 것
+-부모 process가 종료되었을 때  자식 process 종료
+-exception
+	memory unavailable
+	bound violation (arr 범위초과)
+	proctection error(남의 영역을 건드림)
+	Arithmetic error(0으로 나눌 때)
+	Time overrun
+	IO failure
+	invalid instruction
+
+Five-state Process Model(중요!)
+new 
+ready-실행 준비 중인 상태, processor할당되면 running으로 바뀜
+running-processer 할당받아 실행 중인 상태
+Blocked(waiting) - 다른 이유(I/O를 쓸 때)로 준비가 덜 된 상태
+Exit 
+suspend
+new --> ready : Admit
+ready --> running : Dispatch
+ready --> blocked : 나올 수 없음. 실행이 되봐야 알 수 있다.
+runnning --> ready : Timeout(주어진 시간 Time Quantum이 다 됐을 때)
+running --> Blocked : Event wait (I/O장치를 쓸 때 wait time 발생하는 동안 다른 process실행해야 하기 때문에 필요)
+Blocked --> Ready: Event Occurs
+Blocked --> Running: 나올 수 없음. running 상태인 프로세스가 있기 때문에 ready 상태로 가야한다.
+Running --> Exit : Release
+
+cf> ready 큐는 각 PCB 주소가 저장되어 있다
+cf> c언어 지역변수 scope: 정의된 중괄호 내에
+		life time: 함수가 만들어 질 때 만들어지고 함수가 종료되면 사라짐
+	전역변수 scope: 프로그램 전체
+		life time: 프로그램이 실행될 때 만들어지고 프로그램이 종료되면 사라짐
+	정적지역변수 scope: 지역변수와 같음
+		     lifetime: 프로그램 실행될 때 만들어지고 프로그램이 종료되면 사라짐
+	정적전역변수 scope: 하나의 파일 내에서만 사용가능
+		     lifetime: 전역변수와 같음	
+	
+Suspended processes : 메인 메모리에서 하드디스크로 간 프로세스
+ -Swapping: 메인 메모리의 저장된 것과 하드디스크에 저장된 것을 swap하는 과정
+
+PCB(Process Control Block)
+ -PID
+
+ -Processor State Information
+   User-Visible Registers GPR
+   Control and status Registers
+	PC
+	PSW(Proccssor Status word) - NZCV(Negative Zero Carry Overflow) -> flag
+   SP(Stack Pointer)
+	사용할 수 있는공간 (top of stack)
+ -스케줄링 상태정보
+
+Process Creation
+ 1.새로운 PID할당
+ 2. 프로세스 공간할당
+ 3. PCB초기화
+ 4. 적절한 링크 설정
+ 5. 다른 자료구조 생성 또는 확장
+   

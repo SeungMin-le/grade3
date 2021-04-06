@@ -1,0 +1,10 @@
+0401 웹 페이지 이동
+
+  액션태그 - JSP 페이지 간 흐름 제어
+	include 다른페이지 갔다가 다시 현 페이지로 이동(pageContext객체의 include와 동일 차이점: 액션태그는 변수를 전달할 수 있음)
+	forward 현 페이지에서 다른 페이지로 이동 response.sendRedirect와 유사하지만 request객체의 사용유무 차이가있다.
+	param 포함되는 페이지에 값을 전달할 때 사용
+	useBean 빈 클래스 처리
+	getProperty
+	setProperty
+	
