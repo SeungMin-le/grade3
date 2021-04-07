@@ -21,3 +21,15 @@
 		getAttribute(String name)
 		setAttribute(String name, Object)
 
+3.session객체 : 접속한 클라이언트의 간단한 정보를 위한 객체(로그인정보 등) http가 무 상태 프로토콜이기 때문에 이전 정보의 저장관리가 필요!
+ -쿠키: pc에 보관하는 방식
+ -세션: 서버에 보관하는 방식(보안이 좋고, 제약사항이 적다)
+	getid()
+	getAttribute(attr)
+	setAttribute(name,attr)
+
+4.config 객체 : 환경정보를 담고 있는 객체
+
+5.page객체: 자기자신의 객체를 말함 (this)
+
+6.exception객체: 예외를 처리할 페이지를 지정할 때 사용하는 객체
