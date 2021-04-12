@@ -1,0 +1,45 @@
+요구사항 분석 과정
+ 요구사항 기법
+	UML
+	user stories: 짧고 간결하게 요구사항을 전달한다.(ppt 49)
+	use cases: 시스템이 어떻게 동작하는지 좀 더 상세하게 기술(예시 ppt52)
+	prototyes
+	requirements specification
+validation : 어떤 기능이 고객한테 맞는냐
+verification: 어떤 방법, 구조가 옳냐
+
+소프트웨어 발주 프로세스 (ppt 10 참고)
+
+요구사항 종류
+	User requirements: 대략적인 요구
+	
+	System requirements : 구체적인 기능 요구
+
+요구사항 결정(ppt 14 참고)
+	functioinal: 기능
+	Non-functional: 성능 사용성 보안 등
+		usabililty : 사용성, 얼마나 사용자 친화적으로 되어있는지 
+		reliability: 신뢰성, 장애가 일어났을 때 어떻게 해결되는지 
+		performance: 성능, 응답시간 처리율 정확도 사용가능성 등 
+		supportability: 지원성, 다른 환경에서도 지원가능 한지 유지보수가 얼마나 쉬운가
+	extended requirements 
+		Design
+		implementation
+		interface
+		physical
+요구사항 분석
+	problem analysis
+	root cause analysis
+	duration analysis
+	activity based costing
+	informal benchmarking
+	outcome analysis
+	technology analysis
+	activity elimination
+요구사항 찾기
+	인터뷰
+	JAD
+	설문조사
+	document analysis
+	관찰
+	

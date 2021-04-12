@@ -1,0 +1,46 @@
+4장
+
+process image
+process - main 함수
+thread - 나머지 함수
+process thread 각각 경쟁하는 것이 아니라 process를 각 thread로 쪼갠 것이다.
+
+
+Processes and threads  자원 소유권 -> process , 스케줄링 실행 -> thread 한 프로세스 안에 있으므로 thread끼리 메모리 공유가능
+	process - time quantum이 끝나면 다른 프로세스로 넘어가는 방식
+	multi threading - scheduling의 기본단위가 thread가 된다.
+	process를 생성하면 기본적으로 thread 하나가 생성된다.
+
+  Threads TCB(ppt 8 참고)
+	Thread 장점
+  		새로운 프로세스를 만드는 거보다 스레드하나 만드는게 시간이 덜 든다
+  		contextswiching 하는 시간이 프로세스보다 짧다
+  		프로그램 안 에서의 통신효율(데이터주고받기)이 증가한다.
+	Thread Synchronization(다음장에서 공부)
+		데이터를 공유하기 때문에 동기화(synchronization)가 필요함
+		
+Type of Threads
+	User level Thread(ULT) ppt 18참고 
+		단점:정보가 일치하지 않을 수 있어서 의도치 않게 process가 blocked될 수 있다. 
+		장점: ppt 21참고
+	Kernel level Thread(KLT)
+		장점: 스레드 하나가 blocked된다해도 다른 스레드를 사용가능
+		단점: overhead가 많아진다.
+
+Multicore and multithreading
+
+windoes 8 process and thread management
+
+Solaris thread and SMP management
+----------------------------------------------------------------------------------------------------------------------
+thread 실습
+ps -aux
+nice
+renice
+fork()-프로세스를 복제해서 사용
+부모 프로세스 와 자식 프로세스 구별
+	부모 프로세스는 자식 프로세스의 PID값 리턴
+	자식 프로세스는 0을 리턴받음
+pid_t(type) new_pid(instance)
+new_pid = fork(); // 복제
+ 
