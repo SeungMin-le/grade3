@@ -62,16 +62,27 @@ Suspended processes : 메인 메모리에서 하드디스크로 간 프로세스
  -Swapping: 메인 메모리의 저장된 것과 하드디스크에 저장된 것을 swap하는 과정
 
 PCB(Process Control Block)
- -PID
+ 	1.PID
 
- -Processor State Information
-   User-Visible Registers GPR
-   Control and status Registers
-	PC
-	PSW(Proccssor Status word) - NZCV(Negative Zero Carry Overflow) -> flag
-   SP(Stack Pointer)
-	사용할 수 있는공간 (top of stack)
- -스케줄링 상태정보
+ 	2.Processor State Information
+   		-User-Visible Registers GPR
+   		-Control and status Registers
+			PC
+			Condition codes
+			status information
+		-PSW(Proccssor Status word) - NZCV(Negative Zero Carry Overflow) -> flag
+   		-SP(Stack Pointer):사용할 수 있는공간 (top of stack)
+	3.processor Control Information
+		-Scheduling and State Information
+			process state(Running, ready, waiting)
+			priority
+			Scheduling-related information
+			Event
+		-Data Structuring
+		-Interprocess Communication
+		-Process Privileges
+		-Memory Management
+		-Resource Ownership and Utilization 
 
 Process Creation
  1.새로운 PID할당
