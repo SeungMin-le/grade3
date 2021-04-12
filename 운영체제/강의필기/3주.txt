@@ -1,4 +1,4 @@
-
+a
 추상화 - 동작과 원리를 몰라도 인터페이스를 제공하여서 사용할 수 있도록 하는 것
 
 OS Management of Application Execution
