@@ -1,3 +1,6 @@
+from ch03_quicksort_v30 import quickSort
+from ch04_graphutils_v10 import * 
+from random import randint
 def shortestPath_Dijkstra(g, s):
     ##입력: 가중치 그래프 G=(V,E), |V|=n , |E|=m
     ##출력: 출발점 s로부터 (n-1)개의 점까지 각각 최단 거리를 저장한 배열 D, 경로를 저장한 배열 P
@@ -17,10 +20,12 @@ def shortestPath_Dijkstra(g, s):
     ##      출발점 s로부터 점 vmin까지의 최단 거리 D[vmin]을 확정시킨다.
         v_min=None
         d_min = float('inf')
+        
         for v in undetermined:         # 확정되지 않은 점들에서 v_min을 찾는다.
             d = D.get(v, float('inf') )  # D[v]의 값이 아직 없으면, 무한대로 설정한다.
-            #TODO 
-            #TODO 
+            v_min = g.edgeweight((s,v))#TODO 
+            if v_min:
+                D[v]=v_min
             #TODO 
         determined.append(v_min)   # 찾아진 v_min을 확정된 점들에 추가한다.
         undetermined.remove(v_min) # 찾아진 v_min을 확정되지 않은 점들에서 제거한다.
@@ -30,13 +35,28 @@ def shortestPath_Dijkstra(g, s):
             if e[1] not in determined :                # 선문의 끝점이 최단거리가 확정이 되지 않았다면,     
                 new_d = D[v_min] + g.edgeweight(e)
                 if (D.get(e[1])) :          # 그전에 이미 어떤 값을 가지고 있다면, 기존값과 비교해서 갱신한다.  
+                    if new_d<D.get(e[1]):#TODO
+                        D[e[1]]=new_d
+                        
+                        
+                    #TODO  
                     #TODO
-                    #TODO  
-                    #TODO  
+                    \
                 else :   # 그전에 어떤 값을 가지고 있지 않다면, infinity로 간주하고 새로 값을 할당한다.
-                    #TODO 
-                    #TODO 
+                    D[e[1]]=new_d#TODO 
+                    #TODO
+                  \
     ##5. return D
     return D, P
 if __name__ == "__main__":
-    
+     V_tuple = ('a', 'b', 'c', 'd', 'e', 'f')
+     EW_dict = {('a','b'):3, ('a','d'):2, ('a','e'):4,
+           ('b','c'):1, ('b','d'):4, ('b','f'):2,
+           ('c','f'):1,
+           ('d','e'):5, ('d','f'):7,
+           ('e','f'):9}
+     g = Graph_Weighted(V_tuple,EW_dict,undirected=True)
+     v_list_remained = list(g.vertexes())
+     p = v_list_remained.pop(0)
+     print(p)
+     #shortestPath_Dijkstra(g,p)
