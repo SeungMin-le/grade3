@@ -5,8 +5,7 @@ atomic operation : 더 이상 쪼갤 수 없는 operation 이 부분은 context 
 		r3<--bal
 		r3<--bal+1 critical section 이 부분을 atomic operation으로 만들어 줘야함
 		bal<--1r3
-deadlock: 프로세스 2개가 서로 가지고 있는 자원을 기다릴 때 일어난다.(다음 장에서 배움) 
-livelock: 상태는 변하지만 진행은 안됨(안 배움)
+
 Mutual Exclusion : 하나의 process가 하나의 resource를 독점하도록 보장하는 것
 	방법
 		1.Interrupt Disabling : critical section 부분이 있으면 interrupt를 끈다. (너무 단순무식함 시스템 전체에 영향을 줌)
@@ -50,8 +49,6 @@ ppt 34 완성 코드
 	s는 mutual exclusion	n = synchronization e= synchronization
 semaphore 구현
 	semWait and semSignal operation을 사용한다.
-Monitor (넘어감)
-Message passing(넘어감)
 Readeres / writers problem
 	1.Reader는 데이터 일관성에 영향을 끼치지 않아서 한 번에 여러 명이 읽어도 상관없지만 
 	2.writer는 한 번에 한놈만 써야한다.

@@ -123,6 +123,6 @@ inlining
 			단점
 				느리다
 				병행될 수 없다.(mar and sweep 단점)
-		Genertational Colletion
+		Generational Colletion
 			object 생명주기는 garbage가 될 가능성가 반비례하는 경향이 있다
 			young ojbect는 빠르게 죽고 old object는 계속 살아있다.
