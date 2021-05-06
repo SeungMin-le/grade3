@@ -1,22 +1,22 @@
 /* ID: COMP319		>>> REPLACE WITH YOUR ID
  * NAME: Algorithms 1	>>> REPLACE WITH YOUR NAME
- * OS: linux, Ubuntu 16.04
+ * OS: linux, Ubuntu 16.04 
  * Compiler version: gcc 5.4.0 20160609
  */
 
 // MEMORY
 // Given (allowed): malloc_c(size_t) strdup_c(const char*)
 // Allowed string functions: strcpy, strncpy, strlen, strcmp, strncmp
-// Unallowed memory functions: memcpy, memccpy, memmove, wmemmove,
+// Unallowed memory functions: memcpy, memccpy, memmove, wmemmove, 
 //    or other direct memory copy/move functions
-//    these functions performs 'BLOCKED' operations so that
-//    a large chunk of memory allocation or move operation are
+//    these functions performs 'BLOCKED' operations so that 
+//    a large chunk of memory allocation or move operation are 
 //    efficiently implemented, so they break UNIT TIME assumption
 //    in algorithm design
 // Unallowed string functions: strdup
 
 // >>> (10/100) pts
-// >>> IN THE TOP 4-LINES COMMENTS
+// >>> IN THE TOP 4-LINES COMMENTS 
 // >>> LINE 1: REPLACE WITH YOUR ID (IF YOU HAVE NON-NUMERIC, IGNORE IT)
 // >>> Line 2: REPLACE WITH YOUR NAME (NO HANGUL)
 // >>> DO NOT CHANGE OS AND Compiler
@@ -47,7 +47,7 @@
 // to compute used memory
 // use malloc_c defined below, instead of malloc, calloc, realloc, etc.
 // malloc_c accumulates the size of the dynamically allocated memory to
-// global/static variable used_memory, so that we can measure the
+// global/static variable used_memory, so that we can measure the 
 // used amount of memory exactly.
 /////////////////////////////////////////////////////////////////////
 #ifdef MEASURE_MEMORY
@@ -117,14 +117,14 @@ char* read_bytes( const char infile[], long *pNbytes )
     B[*pNbytes] = '\0';
     //fprintf(stderr, "file %s, %ld/%ld bytes read\n",infile,n,*pNbytes);
 
-    // close file
+    // close file 
     fclose(fp);
     return B;
   }
 }
 
 /////////////////////////////////////////////////////////////
-// write memory to a text file
+// write memory to a text file 
 /////////////////////////////////////////////////////////////
 void write_bytes( const char outfile[], const char B[], long Nbytes )
   // write the char array of size Nbytes
@@ -151,7 +151,7 @@ void write_bytes( const char outfile[], const char B[], long Nbytes )
     }
     //fprintf(stderr, "file %s, %ld/%ld bytes written\n",outfile,n,Nbytes);
 
-    // close file
+    // close file 
     fclose(fp);
   }
 }
@@ -160,113 +160,8 @@ void write_bytes( const char outfile[], const char B[], long Nbytes )
 // FILL: YOUR AREA
 // DEFINE YOUR OWN FUNCTIONS
 /////////////////////////////////////////////////////////////
-char ** bToArr(char *B,int numBytes,int count){
-    char **arr;
-    int k=0;
 
 
-    arr=(char**)malloc_c(sizeof(char*)*(numBytes/count));
-    for(int i=0;i<(numBytes/count);i++){
-        arr[i]=(char*)malloc_c(sizeof(char)*count+1);
-    }
-    for(int i=0;i<(numBytes/count);i++){
-        for(int j=0;j<count;j++){
-            arr[i][j]=B[k++];
-        }
-        arr[i][count]='\0';
-
-    }
-    return arr;
-}
-void arrToB(char **arr,char*B,int numBytes,int count){
-
-    int k=0;
-    for(int i=0;i<(numBytes/count);i++){
-        for(int j=0;j<count;j++){
-            B[k++]=arr[i][j];
-        }
-
-    }
-    B[numBytes-1]='\0';
-
-
-}
-///////////////////////////////////////////////////////////////
-// merge sort
-//source:COMP319 Algorithms 1, Spring 2021: Lecture 5 Merge and Quick Sort P.11
-void merge_sort(char **arr,char**tmp,int left,int right){
-    int mid;
-
-    if(left<right){
-        mid = (left+right)/2;
-        merge_sort(arr,tmp,left,mid);
-        merge_sort(arr,tmp,mid+1,right);
-
-        merge(arr,tmp,left,mid,right);
-
-    }
-}
-///////////////////////////////////////////////////////////////
-// merge sort
-//source:COMP319 Algorithms 1, Spring 2021: Lecture 5 Merge and Quick Sort P.11
-void merge(char**arr,char**tmp,int left,int mid, int right){
-
-    int i,j,k,l;
-
-
-    i=left; j=mid+1; k=left;
-
-    while(i<=mid && j<=right){
-        if(strcmp(arr[i],arr[j])<=0){
-            strcpy(tmp[k++] , arr[i++]);
-        }
-        else{
-            strcpy(tmp[k++] , arr[j++]);
-        }
-    }
-    if(i>mid){
-        for(l=j; l<=right; l++){
-            strcpy(tmp[k++] , arr[l]);
-        }
-    }
-    else{
-        for(l=i; l<=mid; l++){
-            strcpy(tmp[k++] , arr[l]);
-        }
-    }
-
-    for(l=left; l<=right; l++){
-        strcpy(arr[l] , tmp[l]);
-    }
-
-}
-///////////////////////////////////////////////////////
-//quick Sort
-//source: https://jaehee-developer.tistory.com/14
-void quick_sort(char **arr,int start,int end, int count){
-    if(start<end){
-        int pivot = getPivot(arr,start,end,count);
-        quick_sort(arr,start,pivot-1,count);
-        quick_sort(arr,pivot+1,end,count);
-    }
-}
-int getPivot(char **arr, int start, int end,int count){
-    int i= start-1,j;
-    char *pivot = (char*)malloc_c(sizeof(char)*count+1);
-    char *temp = (char*)malloc_c(sizeof(char)*count+1);
-    pivot=arr[end];
-    for(j=start;j<end;j++){
-        if(strcmp(arr[j],pivot)<=0){
-            strcpy(temp,arr[++i]);
-            strcpy(arr[i],arr[j]);
-            strcpy(arr[j],temp);
-        }
-    }
-    strcpy(temp,arr[i+1]);
-    strcpy(arr[i+1],arr[end]);
-    strcpy(arr[end],temp);
-    return i+1;
-}
 /////////////////////////////////////////////////////////////
 // main function
 /////////////////////////////////////////////////////////////
@@ -275,9 +170,6 @@ int main(int argc, char *argv[])
   long numBytes;
   char *B;	// to store data to be sorted
   int method;	// which sorting method
-  char **arr;
-  int count=0;
-  char **tmp;
 #ifdef MEASURE_TIME
   clock_t start, end;
   double cpu_time_used;
@@ -295,33 +187,22 @@ int main(int argc, char *argv[])
 #ifdef MEASURE_TIME
   start = clock();
 #endif
-  for(int i=0;i<numBytes-1;i++){
-        if(B[i]=='>'){
-            count=i+1;
-            break;
-        }
-  }
-  arr=bToArr(B,numBytes,count);
   if ( B != NULL && numBytes > 0 ) {
     switch ( method ) {
       case 1:	// merge sort
-          tmp=(char**)malloc_c(sizeof(char*)*(numBytes/count));
-          for(int i=0;i<(numBytes/count);i++){
-            tmp[i]=(char*)malloc_c(sizeof(char)*count+1);
-          }
-
-          merge_sort(arr,tmp,0,numBytes/count-1);
-
+	/////////////////////////////////////////////////////////////
+	// FILL
+	/////////////////////////////////////////////////////////////
 	break;
-      case 2:
-          quick_sort(arr,0,numBytes/count-1,count);
-
+      case 2:	// quick sort
+	/////////////////////////////////////////////////////////////
+	// FILL
+	/////////////////////////////////////////////////////////////
 	break;
       default:
 	fprintf(stderr, "unknown method: %d\n", method);
 	break;
     }
-    arrToB(arr,B,numBytes,count);
 
 #ifdef MEASURE_TIME
     end = clock();
@@ -339,7 +220,6 @@ int main(int argc, char *argv[])
 
     // once allocated, should be freed after use
     free(B);
-    free(arr);
   }
   else {	// wrong file
     fprintf(stderr,"Wrong file format for %s\n",argv[2]);
