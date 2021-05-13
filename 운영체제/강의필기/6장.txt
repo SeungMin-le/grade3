@@ -1,0 +1,22 @@
+6장 Deadlock and starvation
+
+Deadlock: 프로세스끼리 직접적으로 통신할 수 없기 때문에 프로세스가 blocked되고 이벤트를 기다리는 상태
+
+	static: 개발자가 만들어야 한다.
+		prevention: 조건 4가지 중 하나만 만족하지 않아도 deadlock 일어나지 않는다. 하나의 조건을 false로 만든다.
+	Dynamic: 개발 마음대로 하고 Os가 실행
+		Aviodance: deadlock이 일어나기 전에 회피 실행도중 발생
+			  resource Allocation Denial: bankers 알고리즘 
+		detection: 주기적으로 체크하고 deadlock발생하면 종료시키거나deadlock이 없어질 때까지 프로세스 하나씩 종료
+
+Deadlock Condition
+	1.Mutual Exclusion: 하나의 자원은 하나의 프로세스만 사용해야한다.
+	2.Hold and wait: 하나의 자원을 hold하면서 다른 자원을 기다림
+	3.No pre-emption(선점x): 자원이 할당되면 운영체제는 뺏을 수 없다. 이유 : 프로그램은 뒤로 돌아갈 수 없다.
+	4.Circular wait이 만들어져야 한다.
+
+Dining Philosophers Ploblem: 조건 4개 만족
+	Mutual Exclusion : 바꿀 수 없음
+	hold and wait : 오른손으로 잡고 왼손에 포크가 없으면 오른손도 놓고 기다린다.(hold x)
+	No pre-emption: 바꿀 수 없음
+	Circular wait: : 포크에 번호를 부여 낮은 번호부터 잡으면 circular wait이 발생하지 않는다.

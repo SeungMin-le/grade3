@@ -1,0 +1,75 @@
+9장
+
+Structural Models
+ 목표: 문제 영역에 포함된 주요 데이터를 찾아 Object의 구조적 모델을 구축하는 것
+ what -> how로 넘어감
+
+Member filed: Classes, Attributes, & operations 객체지향
+	Classes(template)
+	Attribute(속성)
+		public
+		private
+		type
+	Operation(함수)
+		public
+		static
+		return type
+		parameter type
+
+Relationships
+	UML 기본 3가지 유형
+		-Generatlization(일반화) : 공통적으로 뽑아낼수 있는 Attribute, operation 대표적 기법 상속화 'a kind of' ~의 일종이다. 
+		-Aggregation(집합): a part of = '~의 부분' 클래스들의 집합
+		-Association(관계): 휴스타1기 학생과 2기학생의 관계처럼 보다 더 약한 관계
+Object Identification
+	텍스트 기반의 분석 
+		-user stories
+		-Use case
+	브레인 스토밍
+	Common Object Lists : 중복된 Object 추출해서 새로운 Object(class)를 만든다
+	pattern : Coupling(결합도)를 최소화 하기 위한 방법 정형화된 구조 만들 수 있음
+Class Diagram : 클래스 관계도 UML대표적인 예(Class, Attribute, operation보다 관계가 더 중요!)
+	Class
+		Class, Attribute, operation 을 기술해서 표현하지만 class로만 표현가능
+		Attribute:+- 로 public ,private 표현 type을 적는다
+		operation:+-로 public, private표현하고 type을 적는다
+	Relationships : the associations between classes
+		1:1 관계
+		1:0~다 관계
+		1:1~다 관계
+		0~다:0~다 관계:
+	Generationlization & Aggregation Associations
+		빈 삼각형 : 상속
+		마름모 : Aggregation 
+	Aggregation Composition 차이
+		상위객체가 죽으면 Aggregation은 나머지 객체가 살아 있지만
+		composition은 나머지객체도 죽는다.
+top down design
+	큰 시스템에서 작은 객체로 내려가면서 만든다.
+bottom up design
+	A만들고 B만들고 C만들어서 합치고 합쳐서 전체 시스템을 만든다.
+Different aspects of design
+	Architecture design: 전체 몇 층을 만들 것이다.
+	class design: 각 층을 어떻게 만들 것이다.
+	
+what ,who how
+what - 요구분석
+how - software Architecture
+who - 이해관계자
+
+Architectural patterns
+	Multi Layer pattern : 층을 여러 개로 만든다.(OSI Model , TCP/IP Model)
+	The Client-Server and other distributed architectural patterns
+		C-S 구조 : Client Sever 구조
+	The Broker architectural pattern : 전문화된 영역을 중계해주는 역할
+				       복잡한 기능을 중계인한테 맡기는 패턴
+	The Transaction proceesing : 은행에서 많이사용 
+				 많은 단계 중 하나 실패하면 맨 처음으로 다시 돌아감
+	The pipe-and filter : 여러 개의 입력단위를 한 묶음으로 처리
+			  데이터가 단계단계를 거쳐 처리
+	MVC : Model(data) View(UI) Controller(algorithm) 분리 시켜놓은 것
+		Controller -> model -> controller -> view
+		장점:view를 여러 개 만들 수 있다
+		단점:프로그램이 복잡해 진다. controller가 너무 커진다.
+	The service - oriented
+	
