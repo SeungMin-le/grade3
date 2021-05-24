@@ -1,0 +1,9 @@
+데이터베이스
+	PSQL 설치 후 실행		
+	server: 155.230.118.120
+	Database: hustarsedb
+	Username:hustarse
+	password: hustarse2021
+	데이터베이스 생성 Create database 'hustarse_2016111683';
+	데이터베이스 연결 \c hustarse_2016111683
+	테이블 생성 테이블명: student 
