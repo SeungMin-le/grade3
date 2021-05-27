@@ -1,0 +1,19 @@
+page
+	page의 개수만큼 page table을 유지시켜야한다.
+	page의 크기가 커지면 page table의 개수는 적어 질 수 있지만 Internal fragmentation이 커질 수 있다.
+	동일하고 고정된 크기 (4kb)
+	physical memory로 변환할 때 page number 와 offset이 필요
+	internal fragmentation 발생 
+	
+segmentation
+	필요한만큼 할당받고 그 안에서 page로 관리 
+	segment number(base address)와 offset
+	exteranl fragmentation 발생 
+
+메모리 관리
+	1. 모든 메모리 주소는 런타임 때 virtual address가 physical adress로 변환 되어야 한다.
+	2. 하나의 프로세스는 많은 조각(page)으로 나누어 질 수 있다.
+virtual memory
+	모든 데이터를 메모리에 올려놓을 필요가 없고, 필요할 때 (on demand page) 올려놓으면 된다.
+thrashing 
+	swapping하는데 걸리는 시간이 더 많이 소모될 때를 thrashing이라고 한다.
