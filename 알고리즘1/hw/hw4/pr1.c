@@ -1,5 +1,6 @@
-/* ID: 2016111683
- * NAME: LEE SEUNGMIN
+
+/* ID:
+ * NAME:
  * OS: linux, Ubuntu 16.04
  * Compiler version: gcc 5.4.0 20160609
  */
@@ -14,8 +15,8 @@
 // >>> DO NOT CHANGE OS OR Compiler
 // >>> COMPILE AND RUN YOUR CODE ON THE LINUX MACHINE
 
-// HOMEWORK PROGRAMMING ASSIGNMENT 4-1
-// HASH FUNCTION DESIGN FOR WORD COUNTING
+// HOMEWORK PROGRAMMING ASSIGNMENT 4-2
+// HASH FUNCTION DESIGN FOR WORD COUNTING SORTED BY NUMBER OF APPEARANCES
 
 #include<stdio.h>
 #include<stdlib.h>	// atoi
@@ -52,7 +53,7 @@ void *malloc_c(size_t size)
 // create a duplicate word with counting bytes
 char *strdup_c(const char *s) {
   int size;
-  size = strlen(s)+1;	// including last null character
+  size = strlen(s)+1;   // including last null character
   used_memory += size;
   return strdup(s);
 }
@@ -69,6 +70,7 @@ struct WORDNODE {
   char *word;	// content
   int count;	// number of appearances
   struct WORDNODE *next;
+  int code;	// code, in the descending order of counts
 };
 
 struct WORDNODE *create_wnode( const char w[] ) {
@@ -79,6 +81,7 @@ struct WORDNODE *create_wnode( const char w[] ) {
   newnode->word = strdup_c(w);
   newnode->count = 1;
   newnode->next = NULL;
+  newnode->code = -1;	// initially not set
   return newnode;
 }
 
@@ -121,13 +124,10 @@ struct WORDHASHTABLE *create_word_hashtable( int hashtabsize )
 
 void free_hashtable(struct WORDHASHTABLE *htab) {
   int i;
-  if ( htab ) {
-    for (i=0; i<htab->size; i++)
-      free_wnodelist_recursive(htab->wnode[i]);
-    free(htab);
-  }
+  for (i=0; i<htab->size; i++)
+    free_wnodelist_recursive(htab->wnode[i]);
+  free(htab);
 }
-
 int hashFunction(int key,int size){
     return key%size;
 }
@@ -165,8 +165,6 @@ void insert(struct WORDHASHTABLE *hashtable,int key,char* value ){
 
     }
 }
-
-
 void sort(struct WORDHASHTABLE *hashtable){
     struct WORDNODE * iterator;
     struct WORDNODE * index;
@@ -185,10 +183,13 @@ void sort(struct WORDHASHTABLE *hashtable){
 
             while(iterator!=NULL && iterator->next!=NULL){
 
-                if(strcmp(min->word,iterator->next->word)>0){
+                if(min->count < iterator->next->count){
 
                     min = iterator->next;
 
+                }
+                else if(strcmp(min->word,iterator->next->word)>0){
+                    min=iterator->next;
                 }
                 iterator=iterator->next;
             }
@@ -208,47 +209,11 @@ void sort(struct WORDHASHTABLE *hashtable){
 
     }
 }
-char** hashToArray(struct WORDHASHTABLE *hashtable){
-    struct WORDNODE **arr;
-    struct WORDNODE * iterator;
-    struct WORDNODE * min;
-    char *tmp;
-    int ntmp;
-    int j=0;
-    arr = (struct WORDNODE **)malloc_c(sizeof(struct WORDNODE *)*hashtable->num_words);
-
-    for(int i=0;i<hashtable->size;i++){
-        iterator=hashtable->wnode[i];
-        while(iterator!=NULL){
-
-            arr[j]=iterator;
-            iterator=iterator->next;
-            j++;
-
-        }
-    }
-    for(int i=0;i<hashtable->num_words-1;i++){
-            min=arr[i];
-            for(int k=i+1;k<hashtable->num_words;k++){
-                if(strcmp(min->word,arr[k]->word)>0){
-                    min=arr[k];
-                }
-            }
-            tmp=min->word;
-            min->word=arr[i]->word;
-            arr[i]->word=tmp;
-
-            ntmp=min->count;
-            min->count=arr[i]->count;
-            arr[i]->count=ntmp;
-
-
-    }
-
-
-    return arr;
-
-}
+/* ========= FILL ======== */
+// functions for handing struct WORDHASHTABLE
+// changing the struct or
+// defining any additional functions and structs are allowed
+/* ========= END OF FILL ======== */
 
 
 /////////////////////////////////////////////////////////////
@@ -259,11 +224,11 @@ int main(int argc, char *argv[])
   struct WORDHASHTABLE *hashtable;
   int htabsize;
   char buffer[256];	// input string
-  char *infile, *outfile;
+  char *infile, *outfile1, *outfile2;
   FILE *ifp, *ofp;
   int j;
   /* ========= FILL ======== */
-  int k,wcount=0;
+  int wcount=0,k;
   struct WORDNODE *currentnode;
   struct WORDNODE **arr;
   // any additional variables can be defined here
@@ -276,16 +241,12 @@ int main(int argc, char *argv[])
 #endif
 
   // INPUT ARGUMENTS
-  if ( argc != 4 ) {
-    //fprintf(stderr, "%d\n",argc);
-    fprintf(stderr, "usage: %s hashtablesize infile outfile\n",argv[0]);
-    exit(0);
-  }
-  else {
-    htabsize = atoi(argv[1]);
-    infile = argv[2];
-    outfile = argv[3];
-  }
+
+
+    htabsize = 3;
+    infile = "i31.txt";
+  //  outfile1 = "h2_i31_3.txt;
+    //outfile2 = "encode_i31.txt";
 
   // create a hash table
   hashtable = create_word_hashtable(htabsize);
@@ -300,9 +261,9 @@ int main(int argc, char *argv[])
   else {
     // read word one by one to the end of file
     for (j=0; !feof(ifp); j++) {	// feof: end of file
-      // 1. read word
       if ( fscanf(ifp, "%s", buffer) != 1 ) break;	// out of the loop
       else {
+
 	/* ========= FILL ======== */
         k=strlen(buffer);
 
@@ -313,57 +274,54 @@ int main(int argc, char *argv[])
 
 
         wcount=0;
-	/* ========= END OF FILL ======== */
+
       }
+	/* ========= END OF FILL ===sdasdasd===== */
     }
+
+
+    rewind(ifp);	// move to the beginning of the file, for the read in ENCODING
+
+    /* ========= FILL ======== */
+    // B. outfile1
+    //   5. print the hash table to file "outfile1"
+    //      the member variable "code" is all -1, because they can be decided
+    //      after the next step
+    //   6. print the sorted (count-then-alphabetic) list of all the words
+    //      while sorting, update the member variable "code" of each WORDNODE instances
+    //      by the order of "count"
+    //   7. print the sorted list of all the words with updatd code
+    // C. outfile2
+    //   8. ENCODING: now we have the codes of all words by the "count" order,
+    //      input file can be encoded by replacing each word with its code
+    //      open file "infile" again for read, and open file "outfile2" for write,
+    //      and store the encoding results (numbers only) to "outfile2"
+    //      whitespaces differences (space/linebreak/tab) are accepted
+    //
+    /* ========= END OF FILL ======== */
+
+    fclose(ifp);
   }
+  sort(hashtable);
+  printf("hashtable %d buckets %d words\n",htabsize,hashtable->num_words);
 
-    fclose(ifp);	// read done
-    sort(hashtable);
-
-    ofp=fopen(outfile,"w");
-    if ( !ofp ) {
-        fprintf(stderr, "cannot open file %s for write\n",outfile);
-    }
-    else {
-        fprintf(ofp,"hashtable %d buckets %d words\n",htabsize,hashtable->num_words);
-        for(int i=0;i<htabsize;i++){
-            fprintf(ofp,"bucket %d",i);
-            currentnode=hashtable->wnode[i];
-                while(currentnode!=NULL){
-                    fprintf(ofp,"(%s %d) ",currentnode->word,currentnode->count);
-                    currentnode=currentnode->next;
-                }
-            fprintf(ofp,"\n");
+    for(int i=0;i<htabsize;i++){
+        printf("bucket %d ",i);
+        currentnode=hashtable->wnode[i];
+        while(currentnode!=NULL){
+            printf("(%s %d %d) ",currentnode->word,currentnode->count,currentnode->code);
+            currentnode=currentnode->next;
         }
-        arr= hashToArray(hashtable);
-        fprintf(ofp,"\n");
-        arr= hashToArray(hashtable);
-        fprintf(ofp,"alphabet-sorted %d words\n",hashtable->num_words);
-        for(int i=0;i<hashtable->num_words;i++){
-            fprintf(ofp,"(%s %d) ",arr[i]->word,arr[i]->count);
-        }
-    fprintf(ofp,"\n");
-       /* n = fwrite(arr,1,Nbytes,fp);
-        if ( n != Nbytes ) {
-        fprintf(stderr, "file %s, %ld/%ld bytes written\n",outfile,n,Nbytes);*/
-
+        printf("\n");
     }
-    //fprintf(stderr, "file %s, %ld/%ld bytes written\n",outfile,n,Nbytes);
+    printf("\n");
 
-    // close file
-    fclose(ofp);
+  /*  printf("alphabet-sorted %d words\n",hashtable->num_words);
+    for(int i=0;i<hashtable->num_words;i++){
+        printf("(%s %d) ",arr[i]->word,arr[i]->count);
+    }
+    printf("\n");*/
 
-
-#ifdef MEASURE_TIME
-  end = clock();
-  cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
-  fprintf(stdout,"%.5f seconds\n",cpu_time_used);
-#endif
-#ifdef MEASURE_MEMORY
-  fprintf(stdout,"%lu bytes ( %.3f x %d )\n",
-      used_memory,(double)used_memory/(double)hashtable->num_words,hashtable->num_words);
-#endif
   free_hashtable(hashtable);
   return 0;
 }
