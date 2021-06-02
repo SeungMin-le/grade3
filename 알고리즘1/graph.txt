@@ -1,0 +1,14 @@
+그래프
+	gragh G = (V,E)
+		V=vertices
+		E=Edges
+
+그래프 나타내는 방법
+	dense: 꽉찬 그래프
+	sparse: 듬성듬성 그래프
+
+	adjacency matrix: 행렬로 표현 ( 연결 :1 비연결: 0) (dense)  공간복잡
+	Adjacency list : 링크드리스트로 표현( sparse) 공간별로안씀
+	
+Breadth-First Search(BFS)
+Depth-First Search(DFS)

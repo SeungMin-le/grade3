@@ -22,17 +22,12 @@ def knapsack(C, n, W, V):
         K[i][0] = 0
     for w in range(1, C+1):
         K[0][w] = 0
-
-    ### TODO TODO         
-    ### TODO TODO         
-    ### TODO TODO         
-    ### TODO TODO         
-    ### TODO TODO         
-    ### TODO TODO         
-    ### TODO TODO         
-    ### TODO TODO         
-    ### TODO TODO         
-    ### TODO TODO         
+    for i in range(1,n+1):
+        for w in range(1,C+1):
+            if W[i]>w:
+                K[i][w]=K[i-1][w]
+            else:
+                K[i][w]=max(K[i-1][w],K[i-1][w-W[i]]+V[i])       
 
     print ("For Debugging...")
     print_matrix(K, n, C)

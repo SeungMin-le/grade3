@@ -1,14 +1,14 @@
-/* ID: 
- * NAME: 
- * OS: linux, Ubuntu 16.04 
+/* ID: 2016111683
+ * NAME: Lee SeungMin
+ * OS: linux, Ubuntu 16.04
  * Compiler version: gcc 5.4.0 20160609
  */
 
-// NOTE: IN GENERAL, COMMENTED STATEMENTS FOLLOWED BY 
+// NOTE: IN GENERAL, COMMENTED STATEMENTS FOLLOWED BY
 // ">>>" WRITTEN IN CAPITAL LETTERS ARE DIRECTIONS
 
 // >>> (10/100) pts
-// >>> IN THE TOP 4-LINES COMMENTS 
+// >>> IN THE TOP 4-LINES COMMENTS
 // >>> LINE 1: WRITE YOUR ID (NON-NUMERIC LETTERS ARE FINE)
 // >>> Line 2: WRITE YOUR NAME (NO HANGUL)
 // >>> DO NOT CHANGE OS OR Compiler
@@ -84,7 +84,7 @@ struct WORDNODE *create_wnode( const char w[] ) {
   return newnode;
 }
 
-void free_wnodelist_recursive(struct WORDNODE *node) { 
+void free_wnodelist_recursive(struct WORDNODE *node) {
   if ( node ) {
     free_wnodelist_recursive(node->next);
     free(node->word);
@@ -94,7 +94,7 @@ void free_wnodelist_recursive(struct WORDNODE *node) {
 
 /* ========= FILL ======== */
 // functions for handing struct WORDNODE
-// changing the struct or 
+// changing the struct or
 // defining any additional functions and structs are allowed
 /* ========= END OF FILL ======== */
 
@@ -108,7 +108,7 @@ struct WORDHASHTABLE {
   int num_words;	// count unique number of words, same as the length of the list
 };
 
-struct WORDHASHTABLE *create_word_hashtable( int hashtabsize ) 
+struct WORDHASHTABLE *create_word_hashtable( int hashtabsize )
 {
   int i;
   struct WORDHASHTABLE *htab;
@@ -123,14 +123,14 @@ struct WORDHASHTABLE *create_word_hashtable( int hashtabsize )
 
 void free_hashtable(struct WORDHASHTABLE *htab) {
   int i;
-  for (i=0; i<htab->size; i++) 
+  for (i=0; i<htab->size; i++)
     free_wnodelist_recursive(htab->wnode[i]);
   free(htab);
 }
 
 /* ========= FILL ======== */
 // functions for handing struct WORDHASHTABLE
-// changing the struct or 
+// changing the struct or
 // defining any additional functions and structs are allowed
 /* ========= END OF FILL ======== */
 
@@ -161,7 +161,7 @@ int main(int argc, char *argv[])
     fprintf(stderr, "usage: %s hashtablesize infile outfile1 outfile2\n",argv[0]);
     exit(0);
   }
-  else { 
+  else {
     htabsize = atoi(argv[1]);
     infile = argv[2];
     outfile1 = argv[3];
@@ -175,7 +175,7 @@ int main(int argc, char *argv[])
   /* The hash table uses the sum of ascii codes of the input word,
    * divided by the hash table size (variable htabsize, argv[1]),
    * and the hash value is the remainder of the integer division (%)
-   * Each bucket is a linked list of struct WORDNODE, 
+   * Each bucket is a linked list of struct WORDNODE,
    * (difference to 4-1) sorted by counts first, and then by an alphabetical order.
    * - see the example
    *
@@ -183,9 +183,9 @@ int main(int argc, char *argv[])
    * A. infile
    *   1. read word
    *   2. compute its hash value (bucket index)
-   *   3. insert the word into the right bucket of the hash table 
+   *   3. insert the word into the right bucket of the hash table
    *      when the word is already in the hash table, increase count
-   *      otherwise, create a new node and insert it into the right bucket 
+   *      otherwise, create a new node and insert it into the right bucket
    *      in an sorted order (count-then-alphabetic)
    *   4. repeat reading words until the end of file
    * B. outfile1
@@ -197,15 +197,15 @@ int main(int argc, char *argv[])
    *      by the order of "count"
    *   7. print the sorted list of all the words with updatd code
    * C. outfile2
-   *   8. ENCODING: now we have the codes of all words by the "count" order, 
+   *   8. ENCODING: now we have the codes of all words by the "count" order,
    *      input file can be encoded by replacing each word with its code
-   *      open file "infile" again for read, and open file "outfile2" for write, 
+   *      open file "infile" again for read, and open file "outfile2" for write,
    *      and store the encoding results (numbers only) to "outfile2"
-   *      whitespaces differences (space/linebreak/tab) are accepted 
+   *      whitespaces differences (space/linebreak/tab) are accepted
    *
    * Template file: template_hw4-2.c
-   * - codes for struct WORDNODE, struct WORDHASHTABLE, 
-   *   and their creation and free to show how to allocate memory 
+   * - codes for struct WORDNODE, struct WORDHASHTABLE,
+   *   and their creation and free to show how to allocate memory
    *   with malloc_c, instead of malloc, to count the memory usage
    * - the struct can be changed, as long as the requirements being satisfied
    *   and the output files are the same
@@ -214,10 +214,10 @@ int main(int argc, char *argv[])
    *   how to read a text file to the end of it
    *
    * Execution example) (more examples can be found in example4-2.log)
- 
+
 $ cat input/i31.txt 	// input file
-sit lorem dolor diam diam lorem sed dolor diam sit amet 
-diam diam lorem ipsum lorem ipsum amet sit lorem sed 
+sit lorem dolor diam diam lorem sed dolor diam sit amet
+diam diam lorem ipsum lorem ipsum amet sit lorem sed
 ipsum sit ipsum amet dolor dolor sed sit ipsum diam
 
 $ ./hw4-2.exe 3 input/i31.txt output/i31_4-2_h3.txt encoded/i31_4-2_h3.txt
@@ -256,9 +256,9 @@ $ cat encoded/i31_4-2_h3.txt
 	/* ========= FILL ======== */
         // A. infile
 	//   2. compute its hash value (bucket index)
-	//   3. insert the word into the right bucket of the hash table 
+	//   3. insert the word into the right bucket of the hash table
 	//      when the word is already in the hash table, increase count
-	//      otherwise, create a new node and insert it into the right bucket 
+	//      otherwise, create a new node and insert it into the right bucket
 	//      in an sorted order (count-then-alphabetic)
 	//   4. repeat reading words until the end of file
 	/* ========= END OF FILL ======== */
@@ -276,12 +276,12 @@ $ cat encoded/i31_4-2_h3.txt
     //      by the order of "count"
     //   7. print the sorted list of all the words with updatd code
     // C. outfile2
-    //   8. ENCODING: now we have the codes of all words by the "count" order, 
+    //   8. ENCODING: now we have the codes of all words by the "count" order,
     //      input file can be encoded by replacing each word with its code
-    //      open file "infile" again for read, and open file "outfile2" for write, 
+    //      open file "infile" again for read, and open file "outfile2" for write,
     //      and store the encoding results (numbers only) to "outfile2"
-    //      whitespaces differences (space/linebreak/tab) are accepted 
-    //  
+    //      whitespaces differences (space/linebreak/tab) are accepted
+    //
     /* ========= END OF FILL ======== */
 
     fclose(ifp);
