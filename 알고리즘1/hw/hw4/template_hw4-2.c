@@ -91,17 +91,6 @@ void free_wnodelist_recursive(struct WORDNODE *node) {
     free(node);
   }
 }
-
-/* ========= FILL ======== */
-// functions for handing struct WORDNODE
-// changing the struct or
-// defining any additional functions and structs are allowed
-/* ========= END OF FILL ======== */
-
-
-/////////////////////////////////////////////////////////////
-// hash table for word counting
-/////////////////////////////////////////////////////////////
 struct WORDHASHTABLE {
   struct WORDNODE **wnode;	// hash table, array of word node lists
   int size;	// size of the hash table
@@ -129,6 +118,221 @@ void free_hashtable(struct WORDHASHTABLE *htab) {
 }
 
 /* ========= FILL ======== */
+int hashFunction(int key,int size){
+    return key%size;
+}
+
+
+void insert(struct WORDHASHTABLE *hashtable,int key,char* value ){
+    int hashIndex = hashFunction(key,hashtable->size);
+
+
+    struct WORDNODE * iterator;
+    struct WORDNODE * newnode= create_wnode(value);
+
+
+    //hashIndex에 아무것도 없는 경우
+    if(hashtable->wnode[hashIndex]==NULL){
+        hashtable->wnode[hashIndex]=newnode;
+        hashtable->num_words++;
+
+    }
+    else{
+        iterator=hashtable->wnode[hashIndex];
+
+        while(iterator!=NULL){
+            if(strcmp(iterator->word,newnode->word)==0){
+                iterator->count++;
+                return;
+            }
+
+            iterator=iterator->next;
+
+        }
+
+        newnode->next=hashtable->wnode[hashIndex];
+        hashtable->wnode[hashIndex]=newnode;
+        hashtable->num_words++;
+
+
+    }
+}
+void sort(struct WORDHASHTABLE *hashtable){
+    struct WORDNODE * iterator;
+    struct WORDNODE * index;
+    struct WORDNODE * min;
+    char* tmp;
+    int ntmp;
+
+    for(int i=0;i<hashtable->size;i++){
+
+        index=hashtable->wnode[i];
+
+        while(index!=NULL){
+            iterator=index;
+            min=index;
+
+            while(iterator!=NULL && iterator->next!=NULL){
+
+                if(min->count < iterator->next->count){
+
+
+                    min = iterator->next;
+
+                }
+                else if(min->count == iterator->next->count && strcmp(min->word,iterator->next->word)>0){
+                        min = iterator->next;
+
+                }
+
+                iterator=iterator->next;
+            }
+
+
+            tmp=min->word;
+            min->word=index->word;
+            index->word=tmp;
+
+
+            ntmp=min->count;
+            min->count=index->count;
+            index->count=ntmp;
+
+            index=index->next;
+        }
+
+    }
+}
+struct WORDNODE ** hashToArray(struct WORDHASHTABLE *hashtable){
+    struct WORDNODE **arr;
+    struct WORDNODE * iterator;
+    struct WORDNODE * max;
+    struct WORDNODE *tmp;
+    int ntmp;
+    int j=0;
+
+
+    arr = (struct WORDNODE **)malloc_c(sizeof(struct WORDNODE *)*hashtable->num_words);
+
+    for(int i=0;i<hashtable->size;i++){
+
+        iterator=hashtable->wnode[i];
+
+        while(iterator!=NULL){
+
+            arr[j]=iterator;
+
+            iterator=iterator->next;
+
+            j++;
+
+        }
+    }
+    for(int i=0;i<hashtable->num_words-1;i++){
+
+            max=arr[i];
+
+            for(int k=i+1;k<hashtable->num_words;k++){
+
+
+                if(max->count < arr[k]->count){
+
+
+                    max=arr[k];
+                }
+                else if(max->count == arr[k]->count && strcmp(max->word,arr[k]->word)>0){
+
+                        max=arr[k];
+
+                    }
+
+            }
+            if(max->word!=arr[i]->word){
+
+                tmp=max->word;
+                max->word=arr[i]->word;
+                arr[i]->word=tmp;
+
+                ntmp=max->count;
+                max->count=arr[i]->count;
+                arr[i]->count=ntmp;
+            }
+
+    }
+    for(int i=0;i<hashtable->num_words;i++){
+        arr[i]->code=i;
+    }
+
+
+    return arr;
+
+}
+struct WORDHASHTABLE * cpyHashtable(struct WORDHASHTABLE *hashtable){
+
+    struct WORDHASHTABLE *htable;
+    int wcount;
+    struct WORDNODE* h1node;
+    struct WORDNODE* h2node;
+    htable=create_word_hashtable(hashtable->size);
+
+    htable->size=hashtable->size;
+
+    for(int i=0;i<htable->size;i++){
+        h1node=hashtable->wnode[i];
+        while(h1node!=NULL){
+            wcount=0;
+            for(int j=0;j<strlen(h1node->word);j++){
+                wcount+=h1node->word[j];
+            }
+            insert(htable,wcount,h1node->word);
+            h1node=h1node->next;
+
+        }
+    }
+
+    for(int i=0;i<htable->size;i++){
+        h1node=hashtable->wnode[i];
+        h2node=htable->wnode[i];
+        while(h1node!=NULL){
+            h2node->word=h1node->word;
+            h2node->count=h1node->count;
+            h1node=h1node->next;
+            h2node=h2node->next;
+        }
+    }
+
+
+
+    return htable;
+}
+void cpyCode(struct WORDNODE **arr,struct WORDHASHTABLE *h2){
+    struct WORDNODE *iterator;
+    for(int j=0;j<h2->size;j++){
+        iterator=h2->wnode[j];
+
+        while(iterator!=NULL){
+
+            for(int i=0;i<h2->num_words;i++){
+
+                if(strcmp(iterator->word,arr[i]->word)==0){
+
+                    iterator->code=arr[i]->code;
+                }
+            }
+            iterator=iterator->next;
+        }
+    }
+
+}
+/* ========= END OF FILL ======== */
+
+
+/////////////////////////////////////////////////////////////
+// hash table for word counting
+/////////////////////////////////////////////////////////////
+
+
+/* ========= FILL ======== */
 // functions for handing struct WORDHASHTABLE
 // changing the struct or
 // defining any additional functions and structs are allowed
@@ -147,7 +351,11 @@ int main(int argc, char *argv[])
   FILE *ifp, *ofp;
   int j;
   /* ========= FILL ======== */
-  // any additional variables can be defined here
+  int hashIndex;
+  int wcount=0,k;
+  struct WORDHASHTABLE * htable;
+  struct WORDNODE *currentnode;
+  struct WORDNODE **arr;
   /* ========= END OF FILL ======== */
 
 #ifdef MEASURE_TIME
@@ -171,77 +379,8 @@ int main(int argc, char *argv[])
   // create a hash table
   hashtable = create_word_hashtable(htabsize);
 
-  /* DESCRIPTION */
-  /* The hash table uses the sum of ascii codes of the input word,
-   * divided by the hash table size (variable htabsize, argv[1]),
-   * and the hash value is the remainder of the integer division (%)
-   * Each bucket is a linked list of struct WORDNODE,
-   * (difference to 4-1) sorted by counts first, and then by an alphabetical order.
-   * - see the example
-   *
-   * Detailed procedure:
-   * A. infile
-   *   1. read word
-   *   2. compute its hash value (bucket index)
-   *   3. insert the word into the right bucket of the hash table
-   *      when the word is already in the hash table, increase count
-   *      otherwise, create a new node and insert it into the right bucket
-   *      in an sorted order (count-then-alphabetic)
-   *   4. repeat reading words until the end of file
-   * B. outfile1
-   *   5. print the hash table to file "outfile1"
-   *      the member variable "code" is all -1, because they can be decided
-   *      after the next step
-   *   6. print the sorted (count-then-alphabetic) list of all the words
-   *      while sorting, update the member variable "code" of each WORDNODE instances
-   *      by the order of "count"
-   *   7. print the sorted list of all the words with updatd code
-   * C. outfile2
-   *   8. ENCODING: now we have the codes of all words by the "count" order,
-   *      input file can be encoded by replacing each word with its code
-   *      open file "infile" again for read, and open file "outfile2" for write,
-   *      and store the encoding results (numbers only) to "outfile2"
-   *      whitespaces differences (space/linebreak/tab) are accepted
-   *
-   * Template file: template_hw4-2.c
-   * - codes for struct WORDNODE, struct WORDHASHTABLE,
-   *   and their creation and free to show how to allocate memory
-   *   with malloc_c, instead of malloc, to count the memory usage
-   * - the struct can be changed, as long as the requirements being satisfied
-   *   and the output files are the same
-   * - codes for execution time measurement and memory usage counting
-   * - codes for file I/O (but not all) is given to show
-   *   how to read a text file to the end of it
-   *
-   * Execution example) (more examples can be found in example4-2.log)
 
-$ cat input/i31.txt 	// input file
-sit lorem dolor diam diam lorem sed dolor diam sit amet
-diam diam lorem ipsum lorem ipsum amet sit lorem sed
-ipsum sit ipsum amet dolor dolor sed sit ipsum diam
 
-$ ./hw4-2.exe 3 input/i31.txt output/i31_4-2_h3.txt encoded/i31_4-2_h3.txt
-0.00035 seconds
-380 bytes ( 54.286 x 7 )
-
-$ cat output/i31_4-2_h3.txt
-hashtable 3 buckets 7 words
-bucket 0 (diam 6) (diam 6 -1) (ipsum 5) (ipsum 5 -1) (lorem 5) (lorem 5 -1) (sit 5) (sit 5 -1) (amet 3) (amet 3 -1)
-bucket 1 (dolor 4) (dolor 4 -1) (sed 3) (sed 3 -1)
-bucket 2
-
-count-alphabet-sorted 7 words
-(diam 6) (diam 6 0) (ipsum 5) (ipsum 5 1) (lorem 5) (lorem 5 2) (sit 5) (sit 5 3) (dolor 4) (dolor 4 4) (amet 3) (amet 3 5) (sed 3) (sed 3 6)
-
-hashtable 3 buckets 7 words
-bucket 0 (diam 6) (diam 6 0) (ipsum 5) (ipsum 5 1) (lorem 5) (lorem 5 2) (sit 5) (sit 5 3) (amet 3) (amet 3 5)
-bucket 1 (dolor 4) (dolor 4 4) (sed 3) (sed 3 6)
-bucket 2
-
-$ cat encoded/i31_4-2_h3.txt
-3 2 4 0 0 2 6 4 0 3 5 0 0 2 1 2 1 5 3 2 6 1 3 1 5 4 4 6 3 1 0
-
-   */
 
   // check for input file existence
   if ( (ifp = fopen(infile,"r")) == NULL ) {
@@ -254,34 +393,92 @@ $ cat encoded/i31_4-2_h3.txt
       if ( fscanf(ifp, "%s", buffer) != 1 ) break;	// out of the loop
       else {
 	/* ========= FILL ======== */
-        // A. infile
-	//   2. compute its hash value (bucket index)
-	//   3. insert the word into the right bucket of the hash table
-	//      when the word is already in the hash table, increase count
-	//      otherwise, create a new node and insert it into the right bucket
-	//      in an sorted order (count-then-alphabetic)
-	//   4. repeat reading words until the end of file
+         k=strlen(buffer);
+
+        for(int i=0;i<k;i++){
+            wcount+=buffer[i];
+        }
+        insert(hashtable,wcount,buffer);
+
+
+        wcount=0;
+
 	/* ========= END OF FILL ======== */
       }
     }
     rewind(ifp);	// move to the beginning of the file, for the read in ENCODING
 
     /* ========= FILL ======== */
-    // B. outfile1
-    //   5. print the hash table to file "outfile1"
-    //      the member variable "code" is all -1, because they can be decided
-    //      after the next step
-    //   6. print the sorted (count-then-alphabetic) list of all the words
-    //      while sorting, update the member variable "code" of each WORDNODE instances
-    //      by the order of "count"
-    //   7. print the sorted list of all the words with updatd code
-    // C. outfile2
-    //   8. ENCODING: now we have the codes of all words by the "count" order,
-    //      input file can be encoded by replacing each word with its code
-    //      open file "infile" again for read, and open file "outfile2" for write,
-    //      and store the encoding results (numbers only) to "outfile2"
-    //      whitespaces differences (space/linebreak/tab) are accepted
-    //
+    sort(hashtable);
+    htable=cpyHashtable(hashtable);
+    ofp=fopen(outfile1,"w");
+    if ( !ofp ) {
+        fprintf(stderr, "cannot open file %s for write\n",outfile1);
+    }
+    else {
+        fprintf(ofp,"hashtable %d buckets %d words\n",htabsize,hashtable->num_words);
+        for(int i=0;i<htabsize;i++){
+            fprintf(ofp,"bucket %d ",i);
+            currentnode=hashtable->wnode[i];
+        while(currentnode!=NULL){
+            fprintf(ofp,"(%s %d %d) ",currentnode->word,currentnode->count,currentnode->code);
+            currentnode=currentnode->next;
+        }
+        fprintf(ofp,"\n");
+    }
+    fprintf(ofp,"\n");
+    arr=hashToArray(hashtable);
+    fprintf(ofp,"count-alphabet-sorted %d words\n",htable->num_words);
+   for(int i=0;i<hashtable->num_words;i++){
+        fprintf(ofp,"(%s %d %d) ",arr[i]->word,arr[i]->count,arr[i]->code);
+    }
+    fprintf(ofp,"\n");
+     fprintf(ofp,"\n");
+
+    cpyCode(arr,htable);
+    for(int i=0;i<htabsize;i++){
+        fprintf(ofp,"bucket %d ",i);
+        currentnode=htable->wnode[i];
+        while(currentnode!=NULL){
+            fprintf(ofp,"(%s %d %d) ",currentnode->word,currentnode->count,currentnode->code);
+            currentnode=currentnode->next;
+        }
+        fprintf(ofp,"\n");
+    }
+    fprintf(ofp,"\n");
+    }
+    fclose(ofp);
+    ofp=fopen(outfile2,"w");
+    if ( !ofp ) {
+        fprintf(stderr, "cannot open file %s for write\n",outfile2);
+    }
+    else {
+    for (j=0; !feof(ifp); j++) {	// feof: end of file
+      if ( fscanf(ifp, "%s", buffer) != 1 ) break;	// out of the loop
+      else {
+
+        k=strlen(buffer);
+        wcount=0;
+        for(int i=0;i<k;i++){
+            wcount+=buffer[i];
+        }
+
+
+      hashIndex=hashFunction(wcount,htable->size);
+
+      currentnode=htable->wnode[hashIndex];
+      while(currentnode!=NULL){
+            if(strcmp(buffer,currentnode->word)==0){
+                fprintf(ofp,"%d ",currentnode->code);
+
+            }
+        currentnode=currentnode->next;
+      }
+
+
+      }
+    }
+    }
     /* ========= END OF FILL ======== */
 
     fclose(ifp);

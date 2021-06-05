@@ -1,4 +1,12 @@
-트리 그림보고 트리인지 아닌지 
-Array로 트리 그리기 complete
-코드를 주고 결과와 과정을 보여라
-빈칸채우기
+bfs 과정 그림 그리기* 
+dp LCS knapsack
+shortest path 벨만포드 과정 그림 그리기*
+kruscal minimum spaning tree 실행되었을 때 시뮬레이션 *
+heap*
+sets and hashing
+BST(insertion deletion)
+
+
+
+
+
