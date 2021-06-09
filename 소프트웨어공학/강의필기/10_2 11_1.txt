@@ -1,0 +1,32 @@
+12장 db
+
+text파일 기반으로 데이터를 관리할 때의 문제점(DB를 써야하는 이유)
+ 1.Queries: 찾을 때 너무 복잡하다.
+ 2.integrity: 오타가 나서 잘못 입력한 경우, 값은 같지만 이름이 다른경우, 다른 record field를 더할 경우 처리하기가 어렵다
+ 3.update: 이름을 last name과 firstname으로 나누고 싶은 경우, customer이라는 새로운 정보를 넣고싶은경우 처리하기 힘들다
+ 4. Multiuse: 동시에 접속에서 사용하기 어렵다.
+ 5.Crashes: 입금당시 문제가 생겼을 때 해결하기 힘들다.
+ 6. physically separate data: 서로 다른 곳에 저장 데이터 정보가 중복되어 있을 수 있다.
+ 7. security: 보안문제 누구나 볼 수 있어 보안에 문제가 있다.
+ 8. effiency
+
+Type of databases and database application
+	전통적: 숫자와 텍스트
+	최근: 멀티미디어, 지리정보, 생물할적 게놈, 데이터 창고, 모바일, 실시간
+
+Recent Development
+	social media website( facebook, twitter 등)은 전통적이지 않은 데이터(posts,tweets,images,video clips)를 필요로 한다.
+	NoSQL은 특징과 기능이 다양한 광범위한 데이터 관리 기술에 사용되는 언어이다.
+	format이 엄격하게 정해지지 않은 SQL
+	ex)1.MONGODB
+	   2.HADOOP
+
+Create database hustarse_2016111683
+\c hustarse_2016111683
+Create table Student
+(
+Name VARCHAR(10),
+Student_number INT,
+Class VARCHAR(5),
+Major VARCHAR(10)
+);

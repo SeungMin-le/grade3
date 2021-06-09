@@ -1,10 +1,11 @@
-bfs 과정 그림 그리기* 
-dp LCS knapsack
-shortest path 벨만포드 과정 그림 그리기*
-kruscal minimum spaning tree 실행되었을 때 시뮬레이션 *
-heap*
-sets and hashing
-BST(insertion deletion)
+bfs 과정 그림 그리기* 13장
+dp LCS 11장
+knapsack 11장
+shortest path 벨만포드 과정 그림 그리기* 14장
+kruscal minimum spaning tree 실행되었을 때 시뮬레이션 * 15장
+heap* 8장
+sets and hashing 10장
+BST(insertion deletion) 9장 
 
 
 

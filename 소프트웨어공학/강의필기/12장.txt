@@ -1,0 +1,99 @@
+refactoring:유지보수를 쉽게하기 위해서 코드를 수정하는 것
+	semantic-preserving transformation: 소프트웨어의 기능은 유지하면서 외형적으로 코드를 바꾸는 것
+refactoring을 해야할 때
+	bad smell이 탐지될 때
+	unit test가 충분히 만들어져 있을 때
+refactoring하는 이유
+	디자인을 향상시키기 위해서
+	중복되는 코드를 제거하기 위해서
+	소프트웨어를 더 쉽게 이해하기 위해서
+	프로그램을 더 빠르게하기 위해서
+what to refactor
+	code smell
+	duplicate code
+	long methods
+	large classes
+	long parameter
+	data clumps
+	switch statement
+	lazy classes	
+	temporay fileds
+	comments
+how to refactor
+	rename method
+	동일한 이름이 있는데 확인
+	정의 caller 이름을 바꿔야한다.
+	test
+refactoring 기법
+	class refactoring
+	method refactoring	
+	attribute refactoring
+code smell
+	duplicate code
+		
+test
+	falut(bug)결함
+		에러로 발전할 수 있는 단계
+		아직 에러는 아님
+		a/b --> b가 0이 될 가능성이 있다.
+
+	error
+		실제로 시스템에서 문제가 발생
+		try catch문으로 예외를 잡는다
+	failure
+		프로그램 실행이 아예 종료된다.
+	falut -> error -> failure
+
+
+	algorithmic fault 알고리즘 결함
+		초기화 x
+		missing test for null
+	mechanical fault 구조적 결함
+	
+fault error failure 처리 방법
+	modular redundancy
+	Declaring the bug as a feature
+		known bugs
+	patching
+		기존의 소프트웨어에 결함이 있는 부분을 patching해서 사용한다.
+	testing 
+		버그가 있는지 없는지 확인
+fault handling
+	fault avoidacne 결함 회피
+		사전에 발생되지 않도록 가능성을 낮춘다.
+		verification
+	fault detection 결함탐지
+		결함이 있는지 없는지 찾는다
+		testing:planned way를 다 실행해본다. (validation)
+		debugging
+		monitoring
+	fault tolerance
+		exception handling
+		modular redundancy(try catch)
+		
+test 과정
+	unit testing -> Intergration testing -> System testing->Acceptance testing
+	단위	       통합		시스템(software)
+
+	unit testing(개발자)
+		class or subsystem을 test
+		개발자에 의해서 실행
+		목표: 올바르게 동작하는지 
+		static testing(at compile time)
+			코드의 구조
+		dynamic testing (at run time)
+			black-box : 입출력만 보고 test
+				입력값을 범위로 나눠서 확인한다.
+			white box : logic의 흐름 확인하며 test
+	Intergration testing(개발자)
+		subsystem의 그룹을 테스트
+		전체 시스템 test
+		목표: interface를 test 잘 연결됐나 안 됐나 
+	System testing(개발자)
+		전체 시스템
+		목표: 요구사항에 맞는지 안 맞는지 확인(validation)
+	Acceptance testing(고객)
+		고객이 원하는대로 만들어졌는지 아닌지 확인
+				
+		
+	

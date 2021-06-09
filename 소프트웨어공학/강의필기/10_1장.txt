@@ -1,0 +1,42 @@
+Design patterns
+	1. structural patterns: 프로그램 구조를 결정
+		composite: 컴포넌트(클래스,모듈) 여러 개 합성
+		Adapter: 기존 시스템들간의 연결 
+		bridge: 기존 시스템과 
+		facade: 하부에 존재하는 시스템에 대한 인터페이스 제공
+		proxy: 내 것에서 쓸 때와 다른 곳에서 쓸 때 똑같이 사용(투명)
+	2. Behavioral patterns: 프로그램이 어떻게 동작하는지 동작흐름
+		command: 제어흐름(if문 for문) 정형화
+		observer: 변수 값 같은 것의 변화가 생겼을 때마다 확인 (관찰받는 객체, 관찰하는 객체 2개가 존재)
+		Strategy: 문서를 읽을 때 문서를 읽는 정책이 필요 문서의 파일명만 보고 어떤 파일인지 판단
+	3. creational patterns: 객체를 생성할 때 어떤 절차로 생성하는지 결정
+		Abstract Factory: 객체를 만들 때 알아서 만들어준다 동일한 객체를 만들 때 사용
+		Builder: 복잡한 생성조건, 프로세스를 만들 때 
+
+abstract class Graphic{
+	public abstract void opertationDraw();
+
+}
+
+class CompoisteGraphic extends Graphic{
+	private List<Graphic> childGraphics = new ArrayList<Graphic>();
+	
+	public void add(Graphic graphic){
+		childeGraphics.add(graphic);
+	}
+	public void remove(Graphic graphic){
+		childeGraphics.remove(graphic);
+	}
+
+	public void operationDraw(){
+		for(Gragphic graphic : childeGraphics){
+			graphic.operationDraw();
+		}
+	}
+}
+
+class Eclipse extends Graphic{
+
+	public void operationDraw(){
+	}
+}
