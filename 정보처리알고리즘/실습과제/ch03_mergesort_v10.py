@@ -7,7 +7,7 @@ def mergeList( A, p, k, q ) :
     t = p
     # print ("......before..........", B, " , ", C)
     while ( i < len(B) and j < len(C) ) :
-        if ( B[i] > C[j] ) :
+        if ( B[i] <C[j] ) :
             A[t] = B[i]
             t=t+1
             i=i+1
